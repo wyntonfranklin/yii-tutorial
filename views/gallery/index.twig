@@ -1,0 +1,54 @@
+<main role="main">
+
+    <section class="jumbotron text-center">
+        <div class="container">
+            <h1 class="jumbotron-heading">{{ title }}</h1>
+            <p class="lead text-muted">This is a sample Yii2 application.
+                I built a gallery to experiment with how this framework operates. You can add items to the gallery
+            using the button below. For more check out <a href="https://wftutorials.wordpress.com">wfTutorials</a>.</p>
+            <p>
+                <a href="{{ createUrl }}" class="btn btn-primary my-2">Add to Gallery</a>
+                {% if userLoggedIn %}
+                    <a href="{{ logoutUrl }}" class="btn btn-dark my-2">Logout - {{ username }}</a>
+                {% else  %}
+                    <a href="{{ loginUrl }}" class="btn btn-dark my-2">Login</a>
+                {% endif %}
+            </p>
+        </div>
+    </section>
+
+    {% if userLoggedIn %}
+    <div class="album py-5 bg-light">
+        <div class="container">
+
+            <div class="row">
+                {% for gallery in models %}
+                <div class="col-md-4">
+                    <div class="card mb-4 shadow-sm">
+                        <div class="card-body">
+                            <a href="/gallery/view/{{ gallery.id }}">
+                                <img class="img-rounded" src="{{ gallery.imageUrl }}" height="225" width="100%">
+                            </a>
+                            <p class="card-text">
+                                {{ gallery.title }}
+                            </p>
+                            <div class="d-flex justify-content-between align-items-center">
+                                <div class="btn-group">
+                                    <a href="/gallery/view/{{ gallery.id }}" type="button" class="btn btn-sm btn-outline-secondary">View</a>
+                                    <a href="/gallery/update/{{ gallery.id }}" type="button" class="btn btn-sm btn-outline-secondary">Edit</a>
+                                    <a data-id="{{ gallery.id }}" href="javascript:void(0);" class="btn btn-sm btn-outline-secondary delete-button">Delete</a>
+                                </div>
+                                <small class="text-muted">{{ gallery.formatedDate }}</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+
+
+            </div>
+        </div>
+    </div>
+    {% endif %}
+</main>
+
